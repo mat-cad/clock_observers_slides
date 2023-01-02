@@ -6,19 +6,23 @@ paginate: true
 Observer in Python
 ===
 
+<!--
 ![bg right width:600 ](observer_refactoring_guru.png)
 image from [http://refactoring.guru](http://refactoring.guru)
+-->
+
+![bg](World_Time_Zones_Map.png)
 
 ---
 
-Exercise
+Goals
 ===
 
 - Implement in Python classes *analogous* to Java's ```java.util.Observer``` interface and ```java.util.Observable``` abstract class.
 
 - *analogous* = equivalent functionality, not literal translation, for instance no need of ```hasChanged(), setChanged()```
 
-- Apply them to show the time at several world time zones
+- Apply them to make desktop clocks that *continuously* show the time of several world time zones
 
 ---
 
@@ -38,8 +42,26 @@ Exercise
 
 ---
 
-``Clock.py``
+*Observer* in Python
 ===
+
+Implement just this:
+
+![width:1000](observer_python.png)
+
+---
+
+Code
+===
+
+We are providing some code that paints these **static** clocks, find it here https://github.com/mat-cad/clocks_observer_slides
+
+![width:900](clocks_students.png)
+
+
+---
+
+## ``Clock``
 
 ```python
 class Clock:
@@ -53,7 +75,7 @@ class Clock:
         self.timer = threading.Timer(self.period, self.start)
         # once we do timer.start(), after period seconds run target
         # function self.start, but since we are inside start() this
-        # will be done forever or until we run stop()
+        # will be done forever
         self.timer.start()
 
     def tick(self):
@@ -64,8 +86,7 @@ class Clock:
 
 ---
 
-``AnalogClock``
-===
+## ``AnalogClock``
 
 ```python
 class AnalogClock:
@@ -98,8 +119,7 @@ class AnalogClock:
 
 ---
 
-``DigitalClock``
-===
+### ``DigitalClock``
 
 ```python
 class DigitalClock:
@@ -129,19 +149,15 @@ class DigitalClock:
 
 ---
 
-``clocks.py``
-===
+## Client
 
 
 ```python
 if __name__ == '__main__':
     clock = Clock(1.0)
     clock.start()
-
     num_clocks = 3
     timezones = np.random.choice(pytz.common_timezones, num_clocks, replace=False)
-    print(timezones)
-
     analog_clocks = []
     digital_clocks = []
     for i in range(num_clocks):
@@ -150,15 +166,13 @@ if __name__ == '__main__':
         digital = DigitalClock(tz)
         analog_clocks.append(analog)
         digital_clocks.append(digital)
-        #
         # TODO: change the following lines
-        #
         dt = datetime.datetime.now() # local date time
         analog._draw_time(dt.astimezone(tz)) # localized date time
         digital._draw_time(dt.astimezone(tz))
 
     def stop_last_analog_clock():
-        pass #TODO
+        pass # TODO
 
     threading.Timer(10.0, stop_last_analog_clock).start()
     # after 10 seconds stop the last analog clock
@@ -166,12 +180,10 @@ if __name__ == '__main__':
 
 --- 
 
-The code we are giving you paints these **static** clocks:
 
-![width:900](clocks_students.png)
+In your implementation you have to stop the last created analog clock after 10 seconds starting all the clocks. 
 
----
-
+What does it mean to stop a desktop clock ? To stop updating it.
 
 ```python
 if __name__ == '__main__':
@@ -184,17 +196,10 @@ if __name__ == '__main__':
     # after 10 seconds stop the last analog clock
 ```
 
-In your implementation you have to stop the last created analog clock after 10 seconds starting all the clocks. 
-
-What does it mean to stop a desktop clock ? To stop updating it.
-
 ---
-Note that rightmost analog clock as a different seconds time because I've stopped it.
+Note that rightmost analog clock has a different seconds time because I've stopped it.
 
 ![width:900](clocks.png)
-
----
-
 
 ---
 
@@ -202,7 +207,7 @@ Deliverables
 ===
 
 - Python source code
-- detailed PlantUML class diagram, with concrete observers and observables
-- printscreens to show it works
+- detailed PlantUML class diagram, having added concrete observers and observables
+- printscreens / gif to show it works
 
 
