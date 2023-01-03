@@ -232,6 +232,12 @@ Now that we have implemented an observable ``Clock`` we can easily add a new typ
 - you can write ``handler.text(..., color='red')``
 - use ``periode`` of ``Clock``, that could be < 1 sec.
 
+---
+
+and more...
+===
+
+And what
 
 ---
 
