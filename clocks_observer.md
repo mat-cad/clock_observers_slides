@@ -234,10 +234,34 @@ Now that we have implemented an observable ``Clock`` we can easily add a new typ
 
 ---
 
-and more...
+Stopwatch
 ===
 
-And what
+- starts at 00:00:00:0
+- when you click on it starts counting
+- refresh every 0.1 seconds
+- click again on it and will pause
+- click again and restarts etc.
+
+  ![](stopwatch1.png)...![](stopwatch2.png)
+
+---
+
+## Hints
+
+- how to capture mouse events in Matplotlib
+    ```python
+    class Stopwatch:
+    def __init__(self):
+        plt.connect('button_press_event', self._on_click)
+        #see https://matplotlib.org/stable/gallery/event_handling/coords_demo.html
+
+    def _on_click(self, event):
+        # event not used
+        # TODO
+    ```
+
+- ``self.duration.total_seconds() - self.duration.seconds`` is the fraction of seconds $\in [0,1.0]$ 
 
 ---
 
