@@ -18,16 +18,16 @@ class Clock:
 
     def start(self):
         logging.debug('enter start')
-        self.tick()
+        self._tick()
         # moving tick() before start maybe slows down the CPU usage
         self.timer = threading.Timer(self.period, self.start)
         # once we do timer.start(), after period seconds run target
         # function self.start, but since we are inside start() this
-        # will be done forever or until we run stop()
+        # will be done forever
         self.timer.start()
         logging.debug('leave start')
 
-    def tick(self):
+    def _tick(self):
         self.datetime = datetime.datetime.now()
         # with attributes year, month, day, hour, minute, second, microsecond
         logging.debug(self.datetime)
@@ -88,7 +88,8 @@ class DigitalClock:
         plt.axis('off')
         plt.axis('tight')
         self._first_time = True
-        # if first time, draw the time
+        # if first time, draw the time, else show the time again
+        # when seconds of time is zero
 
     def _draw_time(self, the_time):
         self.handler.clear()

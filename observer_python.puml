@@ -4,7 +4,6 @@ skinparam classAttributeIconSize 0
 skinparam noteFontSize 11
 
 abstract class Observable {
-# observers : Observer[]
 + addObserver (ob : Observer)
 + deleteObserver (ob : Observer)
 + deleteObservers()
