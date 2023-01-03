@@ -3,7 +3,7 @@ marp: true
 paginate: true
 ---
 
-Observer in Python
+Observer <br>in Python
 ===
 
 <!--
@@ -11,7 +11,7 @@ Observer in Python
 image from [http://refactoring.guru](http://refactoring.guru)
 -->
 
-![bg](World_Time_Zones_Map.png)
+![bg right:70%](World_Time_Zones_Map.png)
 
 ---
 
@@ -54,7 +54,7 @@ Implement just this:
 Code
 ===
 
-We are providing some code that paints these **static** clocks, find it here https://github.com/mat-cad/clocks_observer_slides
+We are providing some code that paints these **static** clocks, find it here https://github.com/mat-cad/clock_observers_slides
 
 ![width:900](clocks_students.png)
 
@@ -200,6 +200,38 @@ if __name__ == '__main__':
 Note that rightmost analog clock has a different seconds time because I've stopped it.
 
 ![width:900](clocks.png)
+
+---
+
+Countdown timer
+===
+
+Now that we have implemented an observable ``Clock`` we can easily add a new type of observer, a countdown timer : given a time *duration*, like 1 minute 10 seconds, start a countdown until 0 secs. :
+
+![width:250](temporizer1.png) ... ![width:250](temporizer2.png) ... ![width:250](temporizer3.png) ... ![width:250](temporizer4.png)
+
+---
+
+## Hints
+
+- package ``datetime`` represents durations with objects of class ``timedelta`` :
+
+    ```python
+    td = datetime.timedelta(hours=0,minutes=1,seconds=10)
+    ```
+- you can perform arithmetic operations on timedeltas :
+
+   ```python
+   >>> td1 = datetime.timedelta(seconds=40)
+   >>> td2 = datetime.timedelta(seconds=30)
+   >>> td3 = td1 + td2
+   >>> print(td3)
+   0:01:10
+   ```
+- a ``datetime.timedelta`` object has a method ``total_seconds()`` that returns a float, and an integer attribute ``seconds`` *but not* ``hours``, ``minutes``
+- you can write ``handler.text(..., color='red')``
+- use ``periode`` of ``Clock``, that could be < 1 sec.
+
 
 ---
 
